@@ -43,12 +43,12 @@ jobs:
       - name: Tag Docker Image
         run: |
           docker tag $ECR_REPOSITORY:${{ github.sha }} \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-vote:${{ github.sha }}
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-vote:${{ github.sha }}
 
       - name: Push Docker Image
         run: |
           docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-vote:${{ github.sha }}
+          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-vote:${{ github.sha }}
 
 
 #for worker
@@ -59,12 +59,12 @@ jobs:
        - name: Tag Docker Image
          run: |
            docker tag $ECR_REPOSITORY:${{ github.sha }} \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-worker:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}
 
        - name: Push Docker Image
          run: |
            docker push \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-worker:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}
 
 # for seeddata
 
@@ -75,12 +75,12 @@ jobs:
        - name: Tag Docker Image
          run: |
            docker tag $ECR_REPOSITORY:${{ github.sha }} \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-seeddata:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-seeddata:${{ github.sha }}
 
        - name: Push Docker Image
          run: |
            docker push \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-seeddata:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-seeddata:${{ github.sha }}
 
  # for result
 
@@ -91,12 +91,12 @@ jobs:
        - name: Tag Docker Image
          run: |
            docker tag $ECR_REPOSITORY:${{ github.sha }} \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-result:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-result:${{ github.sha }}
 
        - name: Push Docker Image
          run: |
            docker push \
-           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY-result:${{ github.sha }}
+           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-result:${{ github.sha }}
 
     
 
