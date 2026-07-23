@@ -56,17 +56,17 @@ jobs:
           docker push \
           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:${{ github.sha }}
 
-      - name: Configure kubectl
-        run: |
-          aws eks update-kubeconfig \
-            --name $EKS_CLUSTER_NAME \
-            --region $AWS_REGION
+      # - name: Configure kubectl
+      #   run: |
+      #     aws eks update-kubeconfig \
+      #       --name $EKS_CLUSTER_NAME \
+      #       --region $AWS_REGION
 
-      - name: Update Kubernetes Deployment
-        run: |
-          kubectl set image deployment/vote \
-          vote=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:${{ github.sha }}
+      # - name: Update Kubernetes Deployment
+      #   run: |
+      #     kubectl set image deployment/vote \
+      #     vote=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:${{ github.sha }}
 
-      - name: Verify Deployment
-        run: |
-          kubectl rollout status deployment/vote
+      # - name: Verify Deployment
+      #   run: |
+      #     kubectl rollout status deployment/vote
