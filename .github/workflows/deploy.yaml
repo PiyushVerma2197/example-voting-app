@@ -77,7 +77,7 @@ jobs:
 
       - name: Update Kubernetes Manifest
         run: |
-          sed -i "s|image: .*example-voting-app-wokring:.*|image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}|g" \
+          sed -i "s|image: .*example-voting-app-worker:.*|image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}|g" \
           k8s-specifications/worker-deployment.yaml   
 
       ###########################################################
