@@ -51,6 +51,11 @@ jobs:
           docker push \
           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-vote:${{ github.sha }}
 
+      - name: Update Kubernetes Manifest
+        run: |
+          sed -i "s|image: .*example-voting-app-vote:.*|image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-vote:${{ github.sha }}|g" \
+          k8s-specifications/vote-deployment.yaml    
+
       ###########################################################
       # Build Worker Image
       ###########################################################
@@ -68,6 +73,12 @@ jobs:
         run: |
           docker push \
           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}
+
+
+      - name: Update Kubernetes Manifest
+        run: |
+          sed -i "s|image: .*example-voting-app-wokring:.*|image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-worker:${{ github.sha }}|g" \
+          k8s-specifications/worker-deployment.yaml   
 
       ###########################################################
       # Build Result Image
@@ -87,20 +98,22 @@ jobs:
           docker push \
           $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-result:${{ github.sha }}
 
-      ###########################################################
-      # Build Seed Data Image
-      ###########################################################
-
-      - name: Build Seed Data Image
+      - name: Update Kubernetes Manifest
         run: |
-          docker build -t seeddata:${{ github.sha }} ./seed-data
-
-      - name: Tag Seed Data Image
+          sed -i "s|image: .*example-voting-app-result:.*|image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-result:${{ github.sha }}|g" \
+          k8s-specifications/result-deployment.yaml    
+          
+      ###############################################################
+      # Commit the changes back to the repo
+      ###############################################################
+      
+      - name: Commit Updated Manifests
         run: |
-          docker tag seeddata:${{ github.sha }} \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-seeddata:${{ github.sha }}
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
 
-      - name: Push Seed Data Image
-        run: |
-          docker push \
-          $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/example-voting-app-seeddata:${{ github.sha }}
+          git add k8s-specifications/
+
+          git commit -m "Update image tags to ${{ github.sha }}" || echo "Nothing to commit"
+
+          git push
