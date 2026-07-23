@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: 686458136675.dkr.ecr.ap-northeast-1.amazonaws.com/example-voting-app-result:7df42a51842db46357212898209561a23307fbbb
+      - image: 686458136675.dkr.ecr.ap-northeast-1.amazonaws.com/example-voting-app-result:4aad16a8be08e6991bbe0d242153a81025c6e745
         name: result
         ports:
         - containerPort: 80
